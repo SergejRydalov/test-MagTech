@@ -1,0 +1,35 @@
+<div class="form-wrapper" [formGroup]="form">
+  <div class="form">
+    <div>
+      <b>Поле ввода значения 1</b>
+      <input type="text" formControlName="input1">
+    </div>
+
+    <div formArrayName="inputArr2">
+      <b>Поле ввода текстовых значений 2 (с возможностью добавление нескольких вхождений)</b>
+      <span *ngFor="let input of inputArr.controls; let i = index">
+      <input type="text" [formControlName]="i">
+      <button *ngIf="i !== 0" (click)="inputArr.removeAt(i)">-</button>
+    </span>
+      <button [disabled]="inputArr.controls.length > 5" (click)="addControl()">Добавить поле ввода</button>
+    </div>
+
+    <div>
+      <b>Список выбора</b>
+      <select formControlName="select">
+        <option [value]="''">-- Сделайте выбор --</option>
+        <option [value]="true">Да</option>
+        <option [value]="''">Нет</option>
+      </select>
+    </div>
+
+    <div>
+      <b>Поле ввода значения 3 отображающееся в интерфейсе по условию (Список выбора = 'Да')</b>
+      <input type="text" formControlName="input3">
+    </div>
+  </div>
+
+  <div class="form-result">
+    <div>{{form.getRawValue() | json}}</div>
+  </div>
+</div>
